@@ -46,10 +46,18 @@ export function AdminLayout({ user }: { user: SessionUser }) {
   ];
   const selected = menu.find((m) => m.key !== '/' && pathname.startsWith(m.key))?.key ?? '/';
 
+  const [loggingOut, setLoggingOut] = useState(false);
+
   const logout = async () => {
-    await api.logout();
-    queryClient.clear();
-    queryClient.setQueryData(['session'], { user: null });
+    setLoggingOut(true);
+    try {
+      await api.logout();
+      queryClient.setQueryData(['session'], { user: null });
+      queryClient.removeQueries({ predicate: (q) => q.queryKey[0] !== 'session' });
+      message.success('로그아웃되었습니다.');
+    } finally {
+      setLoggingOut(false);
+    }
   };
 
   return (
@@ -69,7 +77,7 @@ export function AdminLayout({ user }: { user: SessionUser }) {
             <Button icon={<KeyOutlined />} onClick={() => setChangingPassword(true)}>
               비밀번호 변경
             </Button>
-            <Button icon={<LogoutOutlined />} onClick={logout}>
+            <Button icon={<LogoutOutlined />} onClick={logout} loading={loggingOut}>
               로그아웃
             </Button>
           </Flex>

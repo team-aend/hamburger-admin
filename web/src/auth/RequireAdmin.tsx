@@ -190,7 +190,7 @@ function FirstPasswordScreen({ user }: { user: SessionUser }) {
       />
       <PasswordChangeForm loginId={user.loginId} />
       <Button type="link" block style={{ marginTop: 8 }} onClick={logout}>
-        다른 계정으로 로그인
+        로그아웃 (다른 계정으로 로그인)
       </Button>
     </CenterCard>
   );

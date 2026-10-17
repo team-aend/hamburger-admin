@@ -1,6 +1,6 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { App, Button, Card, Empty, Flex, Image, Typography, Upload } from 'antd';
+import { App, Button, Card, Flex, Image, Typography, Upload } from 'antd';
 import { api } from '@/api/admin';
 import type { ProductDetail } from '@/api/types';
 
@@ -40,7 +40,27 @@ export function ImageSection({ product }: { product: ProductDetail }) {
         {product.imageUrl ? (
           <Image src={product.imageUrl} width={240} style={{ objectFit: 'cover', borderRadius: 8 }} />
         ) : (
-          <Empty description="이미지가 없어 사용자 화면에 대체 이미지가 표시됩니다." />
+          <div
+            style={{
+              width: 240,
+              height: 160,
+              borderRadius: 8,
+              background: '#f5f5f5',
+              border: '1px dashed #d9d9d9',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+            }}
+          >
+            <span style={{ fontSize: 56, lineHeight: 1 }} aria-hidden="true">
+              🍔
+            </span>
+            <Typography.Text type="secondary" style={{ fontSize: 12 }}>
+              기본 이미지 (등록된 이미지 없음)
+            </Typography.Text>
+          </div>
         )}
         <Upload accept={ACCEPT.join(',')} showUploadList={false} beforeUpload={beforeUpload}>
           <Button icon={<UploadOutlined />} loading={upload.isPending}>

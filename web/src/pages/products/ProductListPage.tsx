@@ -95,9 +95,22 @@ export function ProductListPage() {
             width: 80,
             render: (url: string | null) =>
               url ? (
-                <Image src={url} width={48} height={48} style={{ objectFit: 'cover' }} preview={false} />
+                <Image src={url} width={48} height={48} style={{ objectFit: 'cover', borderRadius: 6 }} preview={false} />
               ) : (
-                <Tag color="orange">없음</Tag>
+                <div
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 6,
+                    background: '#f5f5f5',
+                    display: 'grid',
+                    placeItems: 'center',
+                    fontSize: 24,
+                  }}
+                  title="기본 이미지 (미등록)"
+                >
+                  🍔
+                </div>
               ),
           },
           { title: '브랜드', dataIndex: 'brandName', width: 110 },
